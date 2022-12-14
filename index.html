@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css" />
+    <title>My meme</title>
+</head>
+<body onload="init()">
+    <header>
+        <h1>meme gen</h1> 
+        <ul>
+            <li> Gallery</li>
+            <li> About</li>
+        </ul>
+    </header>
+
+    <section class="gallery">
+        
+    </section>
+    <section class="meme-editor" hidden>
+        <canvas id="meme-canvas" height="550" width="550" onclick="draw(event)"></canvas>
+        <div class="editor">
+            <!-- <label for="fname">First name:</label> -->
+            <input onchange="onText()" type="text" id="fname" name="fname">
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <!-- <script src="js/services/storage.service.js"></script> -->
+    <script src="js/galleryController.js"></script>
+    <script src="js/galleryService.js"></script>
+    <script src="js/memeController.js"></script>
+    <script src="js/memeService.js"></script>
+</body>
+</html>

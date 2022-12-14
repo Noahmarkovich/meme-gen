@@ -1,0 +1,22 @@
+
+
+.gallery{
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) ;
+    gap: 20px;
+}
+
+img{
+    width: 100%;
+    cursor: pointer;
+}
+
+canvas{
+    outline: 1px solid black;
+    /* display: block; */
+}
+.editor{
+    /* border: 1px solid black;
+    height: 550px; */
+}
