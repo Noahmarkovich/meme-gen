@@ -68,7 +68,15 @@ function onAddLine(){
 }
 
 function onSwitchLine(){
-    switchLine()
+    const elTxt = document.querySelector('input[name="enterd-text"]')
+    // const {lines} = getMem()
+    const currText = switchLine()
     renderCanvas()
-    
+    elTxt.value = currText
+
+}
+
+function onGallery(elLink){
+    elLink.classList.toggle('clicked')
+
 }

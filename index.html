@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css" />
     <title>My meme</title>
 </head>
 <body onload="init()">
-    <header>
-        <h1>meme gen</h1> 
-        <ul>
-            <li> Gallery</li>
-            <li> About</li>
+    <header class="flex space-between">
+        <img class="logo" src="/logo/Layer_2.png">
+        <nav class="main-nav flex align-center">
+        <ul class="flex clean-list ">
+            <li class="border-right padding-right"><a onclick="onGallery(this)" href="#">Gallery</a></li>
+            <li class="padding-left"> <a href="#">About</a></li>
         </ul>
+        </nav>
     </header>
 
     <section class="gallery">
@@ -31,6 +34,23 @@
             <button onclick="onSwitchLine()" class="switch-line">switch line</button>
         </div>
     </section>
+
+    <section class="about">
+        <img class="me" src="/img/me.jpg">
+        <div class="about-me">
+            <h4>Noah Markovich</h4>
+            <p>A full stack developer in the making. I have created this site as part of a project in the Coding Academy program. Enjoy!</p>
+            <nav class="social-media">
+                <a href="https://www.facebook.com/noah.marcovich" class="fa fa-facebook"></a>
+                <a href="https://www.linkedin.com/in/noah-markovich-956a42201" class="fa fa-linkedin"></a>
+                <a href="https://github.com/Noahmarkovich" class="fa fa-github"></a>
+            </nav>
+        </div>
+    </section>
+    <footer class="footer flex align-center">
+        <img class="logo no-margin-left" src="/logo/Layer_2.png">
+        <h5>all rights reserved 2019</h5>
+    </footer>
 
     <script src="js/main.js"></script>
     <!-- <script src="js/services/storage.service.js"></script> -->

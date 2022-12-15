@@ -74,6 +74,7 @@ function switchLine(){
     else if (gCurrLineIdx === 2) gCurrLineIdx = 1
     else if( gCurrLineIdx === 1) gCurrLineIdx = 0
     gMeme.selectedLineIdx = gCurrLineIdx
-    console.log(gMeme)
+    
+    return gMeme.lines[gCurrLineIdx].txt
 }
 
