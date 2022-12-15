@@ -17,13 +17,16 @@ function renderGallery(){
 function openEditor(img, imgId){
     gElCanvas = document.getElementById('meme-canvas')
     gCtx = gElCanvas.getContext('2d')
-    const elEditor = document.querySelector('.meme-editor')
+    const elEditor = document.querySelector('.edit-container')
     const elGallery = document.querySelector('.gallery')
-    console.log(elGallery)
     elGallery.style.display = "none"
+    elEditor.classList.add('meme-editor')
     elEditor.hidden = false
     // let elImg = <img class="initImg" src="img/1.jpg" alt="An image of a dog"/>
     // elImg.innerHTML = clickedImg
     gCtx.drawImage(img , 0, 0, gElCanvas.width, gElCanvas.height)
     uploadImg(imgId)
+    updateMeme()
+    gCurrImg= img
+    initEdit()
 }

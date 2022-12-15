@@ -19,11 +19,15 @@
     <section class="gallery">
         
     </section>
-    <section class="meme-editor" hidden>
+    <section class="edit-container" hidden>
         <canvas id="meme-canvas" height="550" width="550" onclick="draw(event)"></canvas>
         <div class="editor">
             <!-- <label for="fname">First name:</label> -->
-            <input onchange="onText()" type="text" id="fname" name="fname">
+            <input oninput="onText(this.value)" type="text" id="enterd-text" name="enterd-text" placeholder="">
+            <input onchange="getColor()" type="color" id="favcolor" name="text-color" value="#ffffff">
+            <button onclick="changeFontSize('+10')" class="increase">increase</button>
+            <button onclick="changeFontSize('-10')" class="decrease">decrease</button>
+            <button onclick="onAddLine()" class="add-line">add line</button>
         </div>
     </section>
 
