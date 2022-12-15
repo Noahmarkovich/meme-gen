@@ -5,7 +5,7 @@ var gMeme
 var gCurrImg
 var gCurrImgObj
 
-var gCurrIdx = 0
+var gCurrLineIdx = 0
 
 function getImg(){
     return gCurrImg
@@ -20,25 +20,26 @@ function _creatMeme(selectedImgId, selectedLineIdx, lines = [{txt:"", fontSizeCh
 }
 
 function getMem(){
+    // var currMemLine = gMeme.find(meme=> meme.selectedLineIdx === gCurrLineIdx)
     return gMeme
 }
 
 function setLineTxt(text){
-    gMeme.lines[0].txt = text
+    gMeme.lines[gCurrLineIdx].txt = text
 }
 function updateColor(color){
-    gMeme.lines[0].color = color
+    gMeme.lines[gCurrLineIdx].color = color
 }
 
 function setFontSizeChang(fontSizeChange){
-    gMeme.lines[0].fontSizeChange = fontSizeChange
+    gMeme.lines[gCurrLineIdx].fontSizeChange = fontSizeChange
 }
 
 function updateMeme(){
     if (gCurrImgObj){
-        var meme = _creatMeme(gCurrImgObj.id, gCurrIdx)
+        var meme = _creatMeme(gCurrImgObj.id, gCurrLineIdx)
     }
-    gMeme= meme
+    gMeme = meme
 }
 
 function uploadImg(imgId){
@@ -58,3 +59,21 @@ function drawText(text, x, y, color='white',align, fontSizeChange = 0) {
     gCtx.fillText(text, x, y) // Draws (fills) a given text at the given (x, y) position.
     gCtx.strokeText(text, x, y) // Draws (strokes) a given text at the given (x, y) position.
 }
+function updateCurrLineIdx(){
+    if (gCurrLineIdx === 2) return
+    else{
+       gCurrLineIdx += 1 
+       gMeme.selectedLineIdx = gCurrLineIdx
+    } 
+    gMeme.lines.push({txt:"", fontSizeChange:0, align:'center', color: 'white'})
+}
+
+function switchLine(){
+    //let currLine = gMeme.selectedLineIdx
+    if (gCurrLineIdx === 0 ) gCurrLineIdx = 2 
+    else if (gCurrLineIdx === 2) gCurrLineIdx = 1
+    else if( gCurrLineIdx === 1) gCurrLineIdx = 0
+    gMeme.selectedLineIdx = gCurrLineIdx
+    console.log(gMeme)
+}
+

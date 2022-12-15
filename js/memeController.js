@@ -14,9 +14,22 @@ function renderCanvas(){
 
 function renderMeme() {
     //Get the props we need from the circle
+    var lineLocation
     const { selectedImgId, selectedLineIdx, lines} = getMem()
-    //Draw the circle
-    drawText(lines[0].txt, gElCanvas.width/2, 50, lines[0].color, lines[0].align, lines[0].fontSizeChange)
+    // var memes = getMem()
+    lines.forEach((line, idx) => {
+        // console.log (meme.lines[0].color) 
+        if(idx === 0){
+            lineLocation = 50
+        }
+        else if(idx === 1){
+            lineLocation = 500
+        }
+        else if(idx > 1){
+            lineLocation = 250
+        } 
+        drawText(line.txt, gElCanvas.width/2, lineLocation , line.color, line.align, line.fontSizeChange)
+    })
 }
 
 function onText(text){
@@ -46,3 +59,16 @@ function getColor(){
     // return textColor
 }
 
+function onAddLine(){
+    const elTxt = document.querySelector('input[name="enterd-text"]')
+    elTxt.value = ''
+    gCurrFontSize =0
+    updateCurrLineIdx()
+    renderCanvas()
+}
+
+function onSwitchLine(){
+    switchLine()
+    renderCanvas()
+    
+}
