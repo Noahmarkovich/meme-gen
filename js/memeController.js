@@ -1,5 +1,5 @@
 'use strict'
-var gCurrFontSize = 0
+var gCurrFontSize
 function initEdit(){
     renderCanvas()
 }
@@ -14,21 +14,25 @@ function renderCanvas(){
 
 function renderMeme() {
     //Get the props we need from the circle
-    var lineLocation
+    var lineLocationY
+    var lineLocationX
     const { selectedImgId, selectedLineIdx, lines} = getMem()
     // var memes = getMem()
     lines.forEach((line, idx) => {
         // console.log (meme.lines[0].color) 
         if(idx === 0){
-            lineLocation = 50
+            lineLocationY = 50
         }
         else if(idx === 1){
-            lineLocation = 500
+            lineLocationY = 500
         }
         else if(idx > 1){
-            lineLocation = 250
+            lineLocationY = 250
         } 
-        drawText(line.txt, gElCanvas.width/2, lineLocation , line.color, line.align, line.fontSizeChange)
+        if (line.align === 'center') lineLocationX =gElCanvas.width/2
+        if (line.align === 'left') lineLocationX = 20
+        if (line.align === 'right') lineLocationX = gElCanvas.width - 20
+        drawText(line.txt, lineLocationX , lineLocationY , line.color, line.align, line.fontSize)
     })
 }
 
@@ -41,13 +45,14 @@ function onText(text){
 }
 
 function changeFontSize(fontSizeChange){
-    if((fontSizeChange=== '+10' && gCurrFontSize === 60)|| (fontSizeChange=== '-10' && gCurrFontSize=== -30)) return
+    const {selectedLineIdx, lines} = getMem()
+    gCurrFontSize = lines[selectedLineIdx].fontSize
+    if((fontSizeChange=== '+10' && gCurrFontSize === 100)|| (fontSizeChange=== '-10' && gCurrFontSize=== 10)) return
     else{
         gCurrFontSize+=+fontSizeChange
         setFontSizeChang(+gCurrFontSize)
         renderCanvas()
-    } 
-    console.log(gCurrFontSize)   
+    }  
    
 }
 
@@ -62,8 +67,9 @@ function getColor(){
 function onAddLine(){
     const elTxt = document.querySelector('input[name="enterd-text"]')
     elTxt.value = ''
-    gCurrFontSize =0
     updateCurrLineIdx()
+    const {selectedLineIdx, lines} = getMem()
+    gCurrFontSize = lines[selectedLineIdx].fontSize
     renderCanvas()
 }
 
@@ -77,6 +83,25 @@ function onSwitchLine(){
 }
 
 function onGallery(elLink){
-    elLink.classList.toggle('clicked')
+    elLink.classList.add('clicked')
+    const elEditor = document.querySelector('.edit-container')
+    const elGallery = document.querySelector('.gallery')
+    elGallery.style.display = "grid"
+    elEditor.classList.remove('meme-editor')
+    elEditor.hidden = true
+    const elTxt = document.querySelector('input[name="enterd-text"]')
+    elTxt.value = ''
 
+}
+
+function onDelete(){
+    const elTxt = document.querySelector('input[name="enterd-text"]')
+    elTxt.value = ''
+    deleteLine()
+    renderCanvas()
+}
+
+function onTextAlign(alignTo){
+    alignText(alignTo)
+    renderCanvas()
 }

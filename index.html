@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,38 +9,64 @@
     <link rel="stylesheet" href="css/main.css" />
     <title>My meme</title>
 </head>
+
 <body onload="init()">
-    <header class="flex space-between">
-        <img class="logo" src="/logo/Layer_2.png">
+    <header class="flex space-between" id="header">
+        <img class="logo" src="logo/Layer_2.png">
         <nav class="main-nav flex align-center">
-        <ul class="flex clean-list ">
-            <li class="border-right padding-right"><a onclick="onGallery(this)" href="#">Gallery</a></li>
-            <li class="padding-left"> <a href="#">About</a></li>
-        </ul>
+            <ul class="flex clean-list ">
+                <li class="border-right padding-right"><a class="gallery-ref" onclick="onGallery(this)">Gallery</a></li>
+                <li class="padding-left"> <a href="#about">About</a></li>
+            </ul>
         </nav>
     </header>
 
     <section class="gallery">
-        
+
     </section>
-    <section class="edit-container" hidden>
+
+    <section class="edit-container" id="edit" hidden>
         <canvas id="meme-canvas" height="550" width="550" onclick="draw(event)"></canvas>
         <div class="editor">
-            <!-- <label for="fname">First name:</label> -->
-            <input oninput="onText(this.value)" type="text" id="enterd-text" name="enterd-text" placeholder="">
-            <input onchange="getColor()" type="color" id="favcolor" name="text-color" value="#ffffff">
-            <button onclick="changeFontSize('+10')" class="increase">increase</button>
-            <button onclick="changeFontSize('-10')" class="decrease">decrease</button>
-            <button onclick="onAddLine()" class="add-line">add line</button>
-            <button onclick="onSwitchLine()" class="switch-line">switch line</button>
+            <input oninput="onText(this.value)" class="text-box" type="text" id="enterd-text" name="enterd-text"
+                placeholder="">
+            <div class="lines-section">
+                <img onclick="onSwitchLine()" class="icon switch-line"
+                    src="icons/up-and-down-opposite-double-arrows-side-by-side.png">
+                <img onclick="onAddLine()" class="icon add-line" src="icons/add.png">
+                <img onclick="onDelete()" class="icon delete" src="icons/trash.png">
+            </div>
+            <!-- <button onclick="onAddLine()" class="add-line">add line</button> -->
+            <div class="fonts-decoration">
+                <img onclick="changeFontSize('+10')" class="icon increase" src="icons/increase font - icon.png">
+                <img onclick="changeFontSize('-10')" class="icon decrease" src="icons/decrease font - icon.png">
+                <img onclick="onTextAlign('left')" class="icon align-left" src="icons/align-to-left.png">
+                <img onclick="onTextAlign('center')" class="icon align-center" src="icons/center-text-alignment.png">
+                <img onclick="onTextAlign('right')" class="icon align-right" src="icons/align-to-right.png">
+                <select class="choose-font" name="fonts" id="fonts">
+                    <option value="Impact">Impact</option>
+                    <option value="Ariel">Ariel</option>
+                </select>
+                <img class="stroke icon" src="icons/text stroke.png">
+                <div class="color-container">
+                    <img class="paint absolute icon" src="icons/paint-board-and-brush.png">
+                    <input oninput="getColor()" type="color" id="favcolor" name="text-color" value="#ffffff"
+                        class="hide icon">
+                </div>
+            </div>
+            <div class="buttons flex space-between align-end">
+            <button onclick="onSwitchLine()" class="download btn">Download</button>
+            <button onclick="onSwitchLine()" class="share btn">Share</button>
+            </div>
         </div>
     </section>
 
-    <section class="about">
-        <img class="me" src="/img/me.jpg">
+    <section class="about" id="about">
+        <img class="me" src="img/me.jpg">
         <div class="about-me">
             <h4>Noah Markovich</h4>
-            <p>A full stack developer in the making. I have created this site as part of a project in the Coding Academy program. Enjoy!</p>
+            <p>A full stack developer in the making. I have created this site as part of a project in the Coding Academy
+                program. Enjoy!</p>
             <nav class="social-media">
                 <a href="https://www.facebook.com/noah.marcovich" class="fa fa-facebook"></a>
                 <a href="https://www.linkedin.com/in/noah-markovich-956a42201" class="fa fa-linkedin"></a>
@@ -48,7 +75,7 @@
         </div>
     </section>
     <footer class="footer flex align-center">
-        <img class="logo no-margin-left" src="/logo/Layer_2.png">
+        <img class="logo no-margin-left" src="logo/Layer_2.png">
         <h5>all rights reserved 2019</h5>
     </footer>
 
@@ -59,4 +86,5 @@
     <script src="js/memeController.js"></script>
     <script src="js/memeService.js"></script>
 </body>
+
 </html>

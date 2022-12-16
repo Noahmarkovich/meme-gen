@@ -17,6 +17,8 @@ function renderGallery(){
 function openEditor(img, imgId){
     gElCanvas = document.getElementById('meme-canvas')
     gCtx = gElCanvas.getContext('2d')
+    const elLink = document.querySelector('.gallery-ref')
+    elLink.classList.remove('clicked')
     const elEditor = document.querySelector('.edit-container')
     const elGallery = document.querySelector('.gallery')
     elGallery.style.display = "none"
