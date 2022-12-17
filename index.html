@@ -16,16 +16,24 @@
         <nav class="main-nav flex align-center">
             <ul class="flex clean-list ">
                 <li class="border-right padding-right"><a class="gallery-ref" onclick="onGallery(this)">Gallery</a></li>
+                <li class="border-right padding-right padding-left"><a class="memes" onclick="onMemes(this)">Memes</a></li>
                 <li class="padding-left"> <a href="#about">About</a></li>
             </ul>
         </nav>
     </header>
+    <section class="gallery-container">
+        <div class="search-container">
+        <form onchange="onSearchBy(event)">
+            <input class="search" type="text" name="txt-filter" placeholder="Enter search keyword" data-trans="search-placeholder" />
+            <img class="search-icon" src="icons/search-icon.png" >
+        </form>
+        </div>
+        <div class="gallery">
 
-    <section class="gallery">
-
+        </div>
     </section>
 
-    <section class="edit-container" id="edit" hidden>
+    <section class="edit-container" id="edit" style="display: none;">
         <canvas id="meme-canvas" height="550" width="550" onclick="draw(event)"></canvas>
         <div class="editor">
             <input oninput="onText(this.value)" class="text-box" type="text" id="enterd-text" name="enterd-text"
@@ -38,28 +46,31 @@
             </div>
             <!-- <button onclick="onAddLine()" class="add-line">add line</button> -->
             <div class="fonts-decoration">
-                <img onclick="changeFontSize('+10')" class="icon increase" src="icons/increase font - icon.png">
-                <img onclick="changeFontSize('-10')" class="icon decrease" src="icons/decrease font - icon.png">
-                <img onclick="onTextAlign('left')" class="icon align-left" src="icons/align-to-left.png">
-                <img onclick="onTextAlign('center')" class="icon align-center" src="icons/center-text-alignment.png">
-                <img onclick="onTextAlign('right')" class="icon align-right" src="icons/align-to-right.png">
-                <select class="choose-font" name="fonts" id="fonts">
-                    <option value="Impact">Impact</option>
-                    <option value="Ariel">Ariel</option>
+                    <img onclick="changeFontSize('+10')" class="icon increase" src="icons/increase font - icon.png">
+                    <img onclick="changeFontSize('-10')" class="icon decrease" src="icons/decrease font - icon.png">
+                    <img onclick="onTextAlign('left')" class="icon align-left" src="icons/align-to-left.png">
+                    <img onclick="onTextAlign('center')" class="icon align-center" src="icons/center-text-alignment.png">
+                    <img onclick="onTextAlign('right')" class="icon align-right" src="icons/align-to-right.png">
+                <select onchange="onChangeFont(this.value)" class="choose-font" name="fonts" id="fonts">
+                    <option class="impact" value="Impact">Impact</option>
+                    <option class="arial" value="Arial">Arial</option>
+                    <option class="montserrat" value="Montserrat">Montserrat</option>
+                    <option class="titan" value="Titan">Titan</option>
                 </select>
-                <img class="stroke icon" src="icons/text stroke.png">
                 <div class="color-container">
-                    <img class="paint absolute icon" src="icons/paint-board-and-brush.png">
+                    <img class="paint icon absolute" src="icons/paint-board-and-brush.png">
                     <input oninput="getColor()" type="color" id="favcolor" name="text-color" value="#ffffff"
-                        class="hide icon">
+                            class="hide icon">
                 </div>
+                <img onclick="onSave()" class="save icon" src="icons/save.png">
             </div>
             <div class="buttons flex space-between align-end">
-            <button onclick="onSwitchLine()" class="download btn">Download</button>
-            <button onclick="onSwitchLine()" class="share btn">Share</button>
+            <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+            <button onclick="onShareImg()" class="share btn">Share</button>
             </div>
         </div>
     </section>
+
 
     <section class="about" id="about">
         <img class="me" src="img/me.jpg">
@@ -80,7 +91,7 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <!-- <script src="js/services/storage.service.js"></script> -->
+    <script src="js/services/storage.service.js"></script>
     <script src="js/galleryController.js"></script>
     <script src="js/galleryService.js"></script>
     <script src="js/memeController.js"></script>

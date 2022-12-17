@@ -1,16 +1,19 @@
 'use strict'
 
-var gMeme
 
+var gMeme
+var gMemes = []
 var gCurrImg
 var gCurrImgObj
 
 var gCurrLineIdx = 0
 
+const KEY = 'memeDB'
+
 function getImg(){
     return gCurrImg
 }
-function _creatMeme(selectedImgId, selectedLineIdx, lines = [{txt:"", fontSize:40, align:'center', color: 'white'}]){
+function _creatMeme(selectedImgId, selectedLineIdx, lines = [{txt:"", fontSize:40, align:'center', color: 'white', font:'Impact'}]){
     var meme = {
         selectedImgId,
         selectedLineIdx,
@@ -36,24 +39,35 @@ function setFontSizeChang(fontSize){
 }
 
 function updateMeme(){
-    if (gCurrImgObj){
-        var meme = _creatMeme(gCurrImgObj.id, gCurrLineIdx)
+    gMemes = loadFromStorage(KEY)
+    console.log(gMemes)
+    let meme
+    if (gMemes && getIsFromMemes()){
+            meme = gMemes.find(meme=> meme.selectedImgId === gCurrImgObj.id)
+            console.log(meme)
+            gMeme = meme
     }
-    gMeme = meme
+    else if (gCurrImgObj){
+        meme = _creatMeme(gCurrImgObj.id, gCurrLineIdx)
+        gMeme = meme
+    }
 }
 
 function uploadImg(imgId){
+    // let clickedImg
+    // if(getIsFromMemes()) 
+    //     clickedImg =  gGallery.find(img=> img.id === imgId)
     let clickedImg =  gGallery.find(img=> img.id === imgId)
     gCurrImgObj =clickedImg
 }
 
 
-function drawText(text, x, y, color='white',align, fontSize ) {
+function drawText(text, x, y, color='white',align, fontSize, font='Impact') {
     gCtx.beginPath()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
-    gCtx.font = `800 ${fontSize}px Arial`;
+    gCtx.font = `400 ${fontSize}px ${font}`;
     gCtx.textAlign = align
     gCtx.textBaseline = 'middle'
     gCtx.fillText(text, x, y) // Draws (fills) a given text at the given (x, y) position.
@@ -87,4 +101,13 @@ function deleteLine(){
 
 function alignText(alignTo){
     gMeme.lines[gMeme.selectedLineIdx].align = alignTo
+}
+
+function changeFont(font){
+    gMeme.lines[gMeme.selectedLineIdx].font = font
+}
+
+function saveImg(){
+    gMemes.push(gMeme)
+    saveToStorage(KEY, gMemes)
 }

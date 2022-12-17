@@ -1,5 +1,7 @@
 'use strict'
 var gCurrFontSize
+var gIsBold = false
+var gFontWeight 
 function initEdit(){
     renderCanvas()
 }
@@ -32,7 +34,7 @@ function renderMeme() {
         if (line.align === 'center') lineLocationX =gElCanvas.width/2
         if (line.align === 'left') lineLocationX = 20
         if (line.align === 'right') lineLocationX = gElCanvas.width - 20
-        drawText(line.txt, lineLocationX , lineLocationY , line.color, line.align, line.fontSize)
+        drawText(line.txt, lineLocationX , lineLocationY , line.color, line.align, line.fontSize, line.font)
     })
 }
 
@@ -83,16 +85,24 @@ function onSwitchLine(){
 }
 
 function onGallery(elLink){
+    gIsMemeOn = false
+    const elMemes = document.querySelector('.memes') 
+    elMemes.classList.remove('clicked')
     elLink.classList.add('clicked')
     const elEditor = document.querySelector('.edit-container')
-    const elGallery = document.querySelector('.gallery')
+    const elGallery = document.querySelector('.gallery-container')
+    const elAbout = document.querySelector('.about')
+    elEditor.style.display = "none"
     elGallery.style.display = "grid"
+    elAbout.style.display = "flex"
     elEditor.classList.remove('meme-editor')
-    elEditor.hidden = true
+    
     const elTxt = document.querySelector('input[name="enterd-text"]')
     elTxt.value = ''
-
+    renderGallery()
 }
+
+
 
 function onDelete(){
     const elTxt = document.querySelector('input[name="enterd-text"]')
@@ -104,4 +114,32 @@ function onDelete(){
 function onTextAlign(alignTo){
     alignText(alignTo)
     renderCanvas()
+}
+
+function onChangeFont(font){
+    changeFont(font)
+    renderCanvas()
+}
+
+function onSave(){
+    saveImg()
+}
+
+function downloadImg(elLink){
+    const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
+    elLink.href = imgContent
+}
+
+
+function onShareImg(){
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        // Encode the instance of certain characters in the url
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
+    }
+    // Send the image to the server
+    doUploadImg(imgDataUrl, onSuccess)
 }
