@@ -77,3 +77,7 @@ function onSearchBy (ev){
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
     window.history.pushState({ path: newUrl }, '', newUrl)
 }
+
+function toggleMenu() {
+    document.body.classList.toggle('menu-open')
+}

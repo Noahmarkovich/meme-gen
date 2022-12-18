@@ -1,7 +1,7 @@
 'use strict'
 var gCurrFontSize
 var gIsBold = false
-var gFontWeight 
+
 function initEdit(){
     renderCanvas()
 }
@@ -18,10 +18,21 @@ function renderMeme() {
     //Get the props we need from the circle
     var lineLocationY
     var lineLocationX
+    var lineLocationRecX
+    var lineLocationRecY
     const { selectedImgId, selectedLineIdx, lines} = getMem()
-    // var memes = getMem()
+    if (selectedLineIdx === 0){
+        lineLocationRecY = 50-(lines[selectedLineIdx].fontSize/2+10)
+    } 
+    else if (selectedLineIdx === 1) {
+        lineLocationRecY = 500-(lines[selectedLineIdx].fontSize/2+10)
+    }
+    else if (selectedLineIdx > 1) {
+        lineLocationRecY = 250-(lines[selectedLineIdx].fontSize/2+10)
+    }
+    console.log (lineLocationRecY)
+    drawRect(25, lineLocationRecY, gElCanvas.width-50, lines[selectedLineIdx].fontSize+20)
     lines.forEach((line, idx) => {
-        // console.log (meme.lines[0].color) 
         if(idx === 0){
             lineLocationY = 50
         }
@@ -31,11 +42,18 @@ function renderMeme() {
         else if(idx > 1){
             lineLocationY = 250
         } 
-        if (line.align === 'center') lineLocationX =gElCanvas.width/2
-        if (line.align === 'left') lineLocationX = 20
-        if (line.align === 'right') lineLocationX = gElCanvas.width - 20
-        drawText(line.txt, lineLocationX , lineLocationY , line.color, line.align, line.fontSize, line.font)
+        if (line.align === 'center') {
+            lineLocationX =gElCanvas.width/2
+        }
+        if (line.align === 'left'){
+            lineLocationX = 30
+        } 
+        if (line.align === 'right'){
+            lineLocationX = gElCanvas.width - 30
+        } 
+        drawText(line.txt, lineLocationX , lineLocationY, line.color, line.align, line.fontSize, line.font)
     })
+    
 }
 
 function onText(text){

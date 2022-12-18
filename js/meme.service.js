@@ -39,10 +39,10 @@ function setFontSizeChang(fontSize){
 }
 
 function updateMeme(){
-    gMemes = loadFromStorage(KEY)
+    (gMemes = loadFromStorage(KEY))? gMemes = loadFromStorage(KEY) : gMemes=[]
     console.log(gMemes)
     let meme
-    if (gMemes && getIsFromMemes()){
+    if (gMemes !==undefined && getIsFromMemes()){
             meme = gMemes.find(meme=> meme.selectedImgId === gCurrImgObj.id)
             console.log(meme)
             gMeme = meme
@@ -62,21 +62,12 @@ function uploadImg(imgId){
 }
 
 
-function drawText(text, x, y, color='white',align, fontSize, font='Impact') {
-    gCtx.beginPath()
-    gCtx.lineWidth = 2
-    gCtx.strokeStyle = 'black'
-    gCtx.fillStyle = color
-    gCtx.font = `400 ${fontSize}px ${font}`;
-    gCtx.textAlign = align
-    gCtx.textBaseline = 'middle'
-    gCtx.fillText(text, x, y) // Draws (fills) a given text at the given (x, y) position.
-    gCtx.strokeText(text, x, y) // Draws (strokes) a given text at the given (x, y) position.
-}
+
+
 function updateCurrLineIdx(){
     if (gCurrLineIdx === 2) return
     else{
-       gCurrLineIdx += 1 
+        gCurrLineIdx += 1 
        gMeme.selectedLineIdx = gCurrLineIdx
     } 
     gMeme.lines.push({txt:"", fontSize:40, align:'center', color: 'white'})
@@ -110,4 +101,25 @@ function changeFont(font){
 function saveImg(){
     gMemes.push(gMeme)
     saveToStorage(KEY, gMemes)
+}
+
+function drawText(text, x, y, color='white',align, fontSize, font='Impact') {
+    gCtx.beginPath()
+    gCtx.lineWidth = 2
+    gCtx.strokeStyle = 'black'
+    gCtx.fillStyle = color
+    gCtx.font = `400 ${fontSize}px ${font}`;
+    gCtx.textAlign = align
+    gCtx.textBaseline = 'middle'
+    gCtx.fillText(text, x, y) // Draws (fills) a given text at the given (x, y) position.
+    gCtx.strokeText(text, x, y) // Draws (strokes) a given text at the given (x, y) position.
+}
+
+function drawRect(x, y, width , height) {
+    gCtx.beginPath()
+    // gCtx.rectBaseline = 'middle'
+    gCtx.fillStyle = '#ffffff80'
+    gCtx.fillRect(x, y, width, height)
+    gCtx.strokeStyle = '#ffffff80'
+    // gCtx.strokeRect(x, y, width, height)
 }
